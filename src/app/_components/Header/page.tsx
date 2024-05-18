@@ -1,58 +1,68 @@
 "use client";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import ModalView from "../Modal/page";
 
-type ModalProps = {
-  isOpen: boolean;
-  handleClose: () => void;
-};
-
-const ModalView = ({ isOpen, handleClose }: ModalProps) => {
-  return (
-    <>
-      <Modal show={isOpen} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-};
-
+import { Trash2, Plus, Pencil, Eye } from "lucide-react";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
-  const handleModalOpen = () => setIsModalOpen(true);
-  const handleModalClose = () => setIsModalOpen(false);
+  const handleModalOpenCreate = () => {
+    setIsModalOpen(true);
+  };
+  const handleModalOpenEdit = () => {
+    setIsModalOpen(true);
+    setIsEdit(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setIsEdit(false);
+  };
 
   const handleOnView = () => console.log("Something Viewed");
   const handleOnDelete = () => console.log("Something Deleted");
 
   return (
-    <div className="m-2 p-2 border border-primary d-inline-flex w-auto gap-2">
-      <Button variant="outline-light" onClick={handleModalOpen}>
+    <div className="m-2 p-2 d-inline-flex w-auto gap-2">
+      <Button
+        className="d-flex align-items-center gap-1"
+        variant="outline-light"
+        onClick={handleModalOpenCreate}
+      >
+        {<Plus size={20} />}
         Add
       </Button>
-      <Button variant="outline-light" onClick={handleModalOpen}>
+      <Button
+        className="d-flex align-items-center gap-1"
+        variant="outline-light"
+        onClick={handleModalOpenEdit}
+      >
+        {<Pencil size={20} />}
         Edit
       </Button>
-      <Button variant="outline-light" onClick={handleOnView}>
+      <Button
+        className="d-flex align-items-center gap-1"
+        variant="outline-light"
+        onClick={handleOnView}
+      >
+        {<Eye size={20} />}
         View
       </Button>
-      <Button variant="outline-danger" onClick={handleOnDelete}>
+      <Button
+        className="d-flex align-items-center gap-1"
+        variant="outline-danger"
+        onClick={handleOnDelete}
+      >
+        {<Trash2 size={20} />}
         Delete
       </Button>
-      <ModalView isOpen={isModalOpen} handleClose={handleModalClose} />
+      <ModalView
+        isOpen={isModalOpen}
+        handleClose={handleModalClose}
+        isEdit={isEdit}
+      />
     </div>
   );
 };
