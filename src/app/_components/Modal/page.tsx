@@ -5,11 +5,11 @@ import ModalForm from "../ModalForm/page";
 type ModalProps = {
   isOpen: boolean;
   handleClose: () => void;
-  isEdit: boolean;
+  isEdit?: boolean;
 };
 
-const ModalView = ({ isOpen, handleClose, isEdit }: ModalProps) => {
-  const modalTitle = isEdit ? "Edit existing pages" : "Create new page";
+const ModalView = ({ isOpen, handleClose, isEdit = false }: ModalProps) => {
+  const modalTitle = isEdit ? "Edit" : "Create new page";
   const saveButtonText = isEdit ? "Update" : "Create";
 
   return (
