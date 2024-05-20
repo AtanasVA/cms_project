@@ -15,13 +15,16 @@ export const getPages = async () => {
   return response.json();
 };
 
-export const getPage = async (id: string) => {
-  const response = await fetch(`http://localhost:3000/api/pages?pageId=${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+export const getPage = async (pageSlug: string) => {
+  const response = await fetch(
+    `http://localhost:3000/api/pages?pageSlug=${pageSlug}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   if (!response) throw new Error("Page not found");
 

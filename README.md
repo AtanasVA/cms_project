@@ -1,29 +1,70 @@
-# Create T3 App
+# My custom type-safe CMS
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Not yet fully completed as more things are needed to be done, like for example:
 
-## What's next? How do I make an app with this?
+- [x] Create Homepage with a Grid displaying all created pages in the database. Each grid row should have the title displayed as well as an Edit and Delete button
+- [x] Add a header with an Add Page button to allow the user to create new pages via a custom modal. The same modal should be used for the Page edit.
+- [x] Install and setup Prisma and the docker-compose file.
+- [x] Ensure no duplicate slugs can be added to the database. Each page should have its unique slug.
+- [x] Add basic error handling
+- [] Add functionality allowing the user to create, edit and delete posts for each page.
+- [] Add advanced error handling. A toast with the error returned from the server will be a nice touch
+- [] Add form validation on the modals using [Zod](https://zod.dev/)
+- [] Possibly add [Formik](https://formik.org/) to handle the form submissions more gracefully
+- [] Improve the type-safety of the queries
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Tech used
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Project bootstrapped with [T3 Stack](https://create.t3.gg/)
 
 - [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- [Bootstrap CSS](https://getbootstrap.com/)
+- [React-Bootstrap](https://react-bootstrap.github.io/)
+- [Docker](https://www.docker.com/)
 
-## Learn More
+## How do I make this start?
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Pretty straightforward I have to say.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Ensure you're using the latest node version (the project is built with v18.17.0 )
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```
+nvm use
+```
 
-## How do I deploy this?
+Install all dependencies
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```
+npm install
+```
+
+You'll need Docker to spin up the container with the MySQL database so I'll suppose you already have that installed. If yes - start it up and proceed with
+
+```
+docker compose up
+```
+
+Note: You can also use DBeaver to monitor your database behavior.
+
+Don't forget to copy the env.example to a .env file and update the DATABASE_URL with your details ( if you're using different ones that is ).
+
+Once all of that is rolling you'll need to run the prisma migrations and generate your prisma client:
+
+```
+npx prisma generate
+```
+
+```
+npx prisma migrate
+```
+
+And that should be it. Run
+
+```
+npm run dev
+```
+
+and should be able to access the project locally and create/update and delete CMS pages.
+
+## Sample screenshots

@@ -19,6 +19,7 @@ const CreatedPagesGrid = () => {
   const { push } = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editPageId, setEditPageId] = useState<string | null>(null);
+  const [editPageSlug, setEditPageSlug] = useState<string | null>(null);
   const { createdPagesCtxData, setCreatedPagesCtxData } =
     useContext<CreatedPagesDataContextType>(CreatedPagesDataContext);
 
@@ -29,9 +30,10 @@ const CreatedPagesGrid = () => {
     setCreatedPages(createdPagesCtxData);
   }, [createdPagesCtxData]);
 
-  const handleModalOpenEdit = (pageId: string) => {
+  const handleModalOpenEdit = (pageId: string, pageSlug: string) => {
     setIsModalOpen(true);
     setEditPageId(pageId);
+    setEditPageSlug(pageSlug);
   };
 
   const handleOnDelete = async (pageId: string) => {
@@ -48,6 +50,8 @@ const CreatedPagesGrid = () => {
   };
   const handleModalClose = () => {
     setIsModalOpen(false);
+    setEditPageId(null);
+    setEditPageSlug(null);
   };
 
   return (
@@ -71,7 +75,7 @@ const CreatedPagesGrid = () => {
             <Button
               className="d-flex align-items-center gap-1"
               variant="outline-light"
-              onClick={() => handleModalOpenEdit(page.id)}
+              onClick={() => handleModalOpenEdit(page.id, page.slug)}
             >
               {<Pencil size={20} />}
               Edit
@@ -94,6 +98,7 @@ const CreatedPagesGrid = () => {
         isOpen={isModalOpen}
         handleClose={handleModalClose}
         editPageId={editPageId}
+        editPageSlug={editPageSlug}
       />
     </Container>
   );

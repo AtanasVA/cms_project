@@ -1,39 +1,20 @@
 import { prisma } from "prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { handleError } from "~/server/errorHandler";
 
 export async function GET(req: NextRequest) {
-  const id = req.nextUrl.searchParams.get("pageId");
-  const filters = {} as { where?: { id: number } };
+  const slug = req.nextUrl.searchParams.get("pageSlug");
+  const filters = {} as { where?: { slug: string } };
 
   try {
-    if (id) {
-      filters.where = { id: Number(id) };
+    if (slug) {
+      filters.where = { slug };
     }
 
     const response = await prisma.page.findMany({ ...filters });
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    console.error("Error fetching pages:", error);
-    if (error instanceof PrismaClientKnownRequestError) {
-      switch (error.code) {
-        default:
-          return NextResponse.json(
-            { error: "Database error occurred." },
-            { status: 500 }
-          );
-      }
-    } else if (error instanceof SyntaxError) {
-      return NextResponse.json(
-        { error: "Invalid JSON format." },
-        { status: 400 }
-      );
-    } else {
-      return NextResponse.json(
-        { error: "An unexpected error occurred." },
-        { status: 500 }
-      );
-    }
+    return handleError(error);
   }
 }
 
@@ -46,31 +27,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ data: response }, { status: 200 });
   } catch (error) {
-    console.error("Error creating page:", error);
-    if (error instanceof PrismaClientKnownRequestError) {
-      switch (error.code) {
-        case "P2002":
-          return NextResponse.json(
-            { error: "Page with this slug already exists." },
-            { status: 409 }
-          );
-        default:
-          return NextResponse.json(
-            { error: "Database error occurred." },
-            { status: 500 }
-          );
-      }
-    } else if (error instanceof SyntaxError) {
-      return NextResponse.json(
-        { error: "Invalid JSON format." },
-        { status: 400 }
-      );
-    } else {
-      return NextResponse.json(
-        { error: "An unexpected error occurred." },
-        { status: 500 }
-      );
-    }
+    return handleError(error);
   }
 }
 
@@ -91,31 +48,7 @@ export async function PUT(req: NextRequest) {
 
     return NextResponse.json({ data: response }, { status: 200 });
   } catch (error) {
-    console.error("Error updating page:", error);
-    if (error instanceof PrismaClientKnownRequestError) {
-      switch (error.code) {
-        case "P2002":
-          return NextResponse.json(
-            { error: "Page with this slug already exists." },
-            { status: 409 }
-          );
-        default:
-          return NextResponse.json(
-            { error: "Database error occurred." },
-            { status: 500 }
-          );
-      }
-    } else if (error instanceof SyntaxError) {
-      return NextResponse.json(
-        { error: "Invalid JSON format." },
-        { status: 400 }
-      );
-    } else {
-      return NextResponse.json(
-        { error: "An unexpected error occurred." },
-        { status: 500 }
-      );
-    }
+    return handleError(error);
   }
 }
 
@@ -131,25 +64,6 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    console.error("Error deleting page:", error);
-    if (error instanceof PrismaClientKnownRequestError) {
-      switch (error.code) {
-        default:
-          return NextResponse.json(
-            { error: "Database error occurred." },
-            { status: 500 }
-          );
-      }
-    } else if (error instanceof SyntaxError) {
-      return NextResponse.json(
-        { error: "Invalid JSON format." },
-        { status: 400 }
-      );
-    } else {
-      return NextResponse.json(
-        { error: "An unexpected error occurred." },
-        { status: 500 }
-      );
-    }
+    return handleError(error);
   }
 }

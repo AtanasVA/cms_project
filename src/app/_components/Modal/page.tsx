@@ -18,9 +18,15 @@ type ModalProps = {
   isOpen: boolean;
   handleClose: () => void;
   editPageId?: string | null;
+  editPageSlug?: string | null;
 };
 
-const ModalView = ({ isOpen, handleClose, editPageId }: ModalProps) => {
+const ModalView = ({
+  isOpen,
+  handleClose,
+  editPageId,
+  editPageSlug,
+}: ModalProps) => {
   const [pageSlug, setPageSlug] = useState<string>();
   const [pageTitle, setPageTitle] = useState<string>();
   const [pageDescription, setPageDescription] = useState<string>();
@@ -39,9 +45,9 @@ const ModalView = ({ isOpen, handleClose, editPageId }: ModalProps) => {
     }
 
     const getEditedPageData = async () => {
-      if (editPageId) {
+      if (editPageSlug) {
         try {
-          const [pageData]: SinglePageData[] = await getPage(editPageId);
+          const [pageData]: SinglePageData[] = await getPage(editPageSlug);
           if (pageData) {
             setPageSlug(pageData.slug);
             setPageTitle(pageData.metaTitle);
