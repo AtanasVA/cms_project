@@ -1,3 +1,7 @@
+import { SinglePageData } from "shared/PagesDataContext";
+
+type ApiResponse = { data?: SinglePageData; error?: string | null };
+
 export const getPages = async () => {
   const response = await fetch("http://localhost:3000/api/pages", {
     method: "GET",
@@ -28,7 +32,7 @@ export const createPage = async (data: {
   slug: string;
   metaTitle: string;
   metaDescription?: string;
-}) => {
+}): Promise<ApiResponse> => {
   if (!data) throw new Error("Missing page data");
 
   const response = await fetch("http://localhost:3000/api/pages", {
@@ -46,7 +50,7 @@ export const updatePage = async (data: {
   slug: string;
   metaTitle: string;
   metaDescription?: string;
-}) => {
+}): Promise<ApiResponse> => {
   if (!data) throw new Error("Missing page data");
   const response = await fetch("http://localhost:3000/api/pages", {
     method: "PUT",

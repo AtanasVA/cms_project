@@ -1,5 +1,6 @@
 import { prisma } from "prisma/client";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
 export async function GET(req: NextRequest) {
   const id = req.nextUrl.searchParams.get("pageId");
@@ -11,10 +12,28 @@ export async function GET(req: NextRequest) {
     }
 
     const response = await prisma.page.findMany({ ...filters });
-
-    return Response.json(response);
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    return Response.json(error);
+    console.error("Error fetching pages:", error);
+    if (error instanceof PrismaClientKnownRequestError) {
+      switch (error.code) {
+        default:
+          return NextResponse.json(
+            { error: "Database error occurred." },
+            { status: 500 }
+          );
+      }
+    } else if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { error: "Invalid JSON format." },
+        { status: 400 }
+      );
+    } else {
+      return NextResponse.json(
+        { error: "An unexpected error occurred." },
+        { status: 500 }
+      );
+    }
   }
 }
 
@@ -25,9 +44,33 @@ export async function POST(req: NextRequest) {
       data,
     });
 
-    return Response.json(response);
+    return NextResponse.json({ data: response }, { status: 200 });
   } catch (error) {
-    return Response.json(error);
+    console.error("Error creating page:", error);
+    if (error instanceof PrismaClientKnownRequestError) {
+      switch (error.code) {
+        case "P2002":
+          return NextResponse.json(
+            { error: "Page with this slug already exists." },
+            { status: 409 }
+          );
+        default:
+          return NextResponse.json(
+            { error: "Database error occurred." },
+            { status: 500 }
+          );
+      }
+    } else if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { error: "Invalid JSON format." },
+        { status: 400 }
+      );
+    } else {
+      return NextResponse.json(
+        { error: "An unexpected error occurred." },
+        { status: 500 }
+      );
+    }
   }
 }
 
@@ -46,9 +89,33 @@ export async function PUT(req: NextRequest) {
       },
     });
 
-    return Response.json(response);
+    return NextResponse.json({ data: response }, { status: 200 });
   } catch (error) {
-    return Response.json(error);
+    console.error("Error updating page:", error);
+    if (error instanceof PrismaClientKnownRequestError) {
+      switch (error.code) {
+        case "P2002":
+          return NextResponse.json(
+            { error: "Page with this slug already exists." },
+            { status: 409 }
+          );
+        default:
+          return NextResponse.json(
+            { error: "Database error occurred." },
+            { status: 500 }
+          );
+      }
+    } else if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { error: "Invalid JSON format." },
+        { status: 400 }
+      );
+    } else {
+      return NextResponse.json(
+        { error: "An unexpected error occurred." },
+        { status: 500 }
+      );
+    }
   }
 }
 
@@ -62,8 +129,27 @@ export async function DELETE(req: NextRequest) {
       },
     });
 
-    return Response.json(response);
+    return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    return Response.json(error);
+    console.error("Error deleting page:", error);
+    if (error instanceof PrismaClientKnownRequestError) {
+      switch (error.code) {
+        default:
+          return NextResponse.json(
+            { error: "Database error occurred." },
+            { status: 500 }
+          );
+      }
+    } else if (error instanceof SyntaxError) {
+      return NextResponse.json(
+        { error: "Invalid JSON format." },
+        { status: 400 }
+      );
+    } else {
+      return NextResponse.json(
+        { error: "An unexpected error occurred." },
+        { status: 500 }
+      );
+    }
   }
 }

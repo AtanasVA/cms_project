@@ -58,16 +58,21 @@ const ModalView = ({ isOpen, handleClose, editPageId }: ModalProps) => {
   const handleCreatePage = async () => {
     try {
       if (pageSlug && pageTitle) {
-        const response: SinglePageData = await createPage({
+        const { data, error } = await createPage({
           slug: pageSlug,
           metaTitle: pageTitle,
           metaDescription: pageDescription,
         });
-        if (response) {
-          setCreatedPagesCtxData((prev) => [...prev, response]);
+
+        if (data) {
+          setCreatedPagesCtxData((prev) => [...prev, data]);
+          return handleClose();
+        } else if (error) {
+          return console.log(
+            "There has been an error creating the page:",
+            error
+          );
         }
-        handleClose();
-        return;
       }
 
       console.log("Missing fields!");
@@ -79,23 +84,28 @@ const ModalView = ({ isOpen, handleClose, editPageId }: ModalProps) => {
   const handleUpdate = async (pageId: string) => {
     try {
       if (pageSlug && pageTitle) {
-        const response: SinglePageData = await updatePage({
+        const { data, error } = await updatePage({
           id: pageId,
           slug: pageSlug,
           metaTitle: pageTitle,
           metaDescription: pageDescription,
         });
-        if (response) {
+
+        if (data) {
           setCreatedPagesCtxData((prev) => {
             const notUpdatedData = prev.filter(
               (page) => page.id !== editPageId
             );
 
-            return [...notUpdatedData, response];
+            return [...notUpdatedData, data];
           });
+          return handleClose();
+        } else if (error) {
+          return console.log(
+            "There has been an error creating the page:",
+            error
+          );
         }
-        handleClose();
-        return;
       }
       console.log("Missing fields!");
     } catch (error) {

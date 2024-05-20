@@ -9,7 +9,7 @@ datasource db {
 
 model Page {
   id Int @id @default(autoincrement())
-  slug String
+  slug String @unique
   metaTitle String @map("meta_title")
   metaDescription String? @map("meta_description")
   @@map("pages")
