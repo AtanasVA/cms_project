@@ -8,6 +8,7 @@ Not yet fully completed as more things are needed to be done, like for example:
 - [x] Ensure no duplicate slugs can be added to the database. Each page should have its unique slug.
 - [x] Add basic error handling
 - [] Add functionality allowing the user to create, edit and delete posts for each page.
+- [] Add pagination for the created pages.
 - [] Add advanced error handling. A toast with the error returned from the server will be a nice touch
 - [] Add form validation on the modals using [Zod](https://zod.dev/)
 - [] Possibly add [Formik](https://formik.org/) to handle the form submissions more gracefully
@@ -59,7 +60,8 @@ npx prisma generate
 npx prisma migrate
 ```
 
-And that should be it. Run
+And that should be it. Run!
+
 
 ```
 npm run dev
@@ -68,3 +70,8 @@ npm run dev
 and should be able to access the project locally and create/update and delete CMS pages.
 
 ## Sample screenshots
+
+[Screenshot 2024-05-21 at 1 42 33](https://github.com/AtanasVA/cms_project/assets/99086114/e2a611ba-c3ce-4031-bbb1-1a5ca117e4b5)
+![Screenshot 2024-05-21 at 1 42 26](https://github.com/AtanasVA/cms_project/assets/99086114/787b9532-2c04-465f-873e-ec3bd135d898)
+![Screenshot 2024-05-21 at 1 42 14](https://github.com/AtanasVA/cms_project/assets/99086114/68f64800-17ab-45c8-be8c-4a913fdc720b)
+![Screenshot 2024-05-21 at 1 42 06](https://github.com/AtanasVA/cms_project/assets/99086114/10a187af-b69c-4a5e-868d-7a5e845213ff)
