@@ -62,7 +62,6 @@ npx prisma migrate
 
 And that should be it. Run!
 
-
 ```
 npm run dev
 ```
@@ -71,7 +70,6 @@ and should be able to access the project locally and create/update and delete CM
 
 ## Sample screenshots
 
-[Screenshot 2024-05-21 at 1 42 33](https://github.com/AtanasVA/cms_project/assets/99086114/e2a611ba-c3ce-4031-bbb1-1a5ca117e4b5)
+![Screenshot 2024-05-21 at 1 42 33](https://github.com/AtanasVA/cms_project/assets/99086114/e2a611ba-c3ce-4031-bbb1-1a5ca117e4b5)
 ![Screenshot 2024-05-21 at 1 42 26](https://github.com/AtanasVA/cms_project/assets/99086114/787b9532-2c04-465f-873e-ec3bd135d898)
 ![Screenshot 2024-05-21 at 1 42 14](https://github.com/AtanasVA/cms_project/assets/99086114/68f64800-17ab-45c8-be8c-4a913fdc720b)
-![Screenshot 2024-05-21 at 1 42 06](https://github.com/AtanasVA/cms_project/assets/99086114/10a187af-b69c-4a5e-868d-7a5e845213ff)
