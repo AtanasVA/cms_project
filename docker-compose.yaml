@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  pages_db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: "pages_db"
+      MYSQL_USER: "atanas_va"
+      MYSQL_PASSWORD: "secret"
+      MYSQL_ROOT_PASSWORD: "secret_root"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - pages_db:/var/lib/mysql
+# Names our volume
+volumes:
+  pages_db:

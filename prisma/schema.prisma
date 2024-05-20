@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Page {
+  id Int @id @default(autoincrement())
+  slug String
+  metaTitle String @map("meta_title")
+  metaDescription String? @map("meta_description")
+  @@map("pages")
+}

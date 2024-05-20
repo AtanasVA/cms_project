@@ -1,7 +1,6 @@
 import "~/styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { ReactNode } from "react";
-import Header from "./_components/Header/page";
 import { Ubuntu } from "next/font/google";
 
 export const metadata = {
@@ -23,8 +22,7 @@ type RootLayoutProps = {
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en" data-bs-theme="dark">
-      <body className={ubuntu.className}>
-        <Header />
+      <body suppressHydrationWarning={true} className={ubuntu.className}>
         {children}
       </body>
     </html>

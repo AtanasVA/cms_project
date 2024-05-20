@@ -1,9 +1,9 @@
 "use client";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
+import { Plus } from "lucide-react";
 import ModalView from "../Modal/page";
 
-import { Trash2, Plus, Pencil, Eye } from "lucide-react";
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

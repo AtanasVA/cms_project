@@ -5,37 +5,56 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useRouter } from "next/navigation";
 import { Pencil, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PaginationRow from "../PaginationRow/page";
 import ModalView from "../Modal/page";
+import { deletePage } from "~/server/queries";
+import {
+  CreatedPagesDataContext,
+  type CreatedPagesDataContextType,
+  type SinglePageData,
+} from "shared/PagesDataContext";
 
-type CreatedPagesGridProps = {
-  pagesData?: {
-    slug: string;
-    title: string;
-    description: string;
-  }[];
-};
-
-const CreatedPagesGrid = ({ pagesData }: CreatedPagesGridProps) => {
+const CreatedPagesGrid = () => {
   const { push } = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [editPageId, setEditPageId] = useState<string | null>(null);
+  const { createdPagesCtxData, setCreatedPagesCtxData } =
+    useContext<CreatedPagesDataContextType>(CreatedPagesDataContext);
 
-  const handleModalOpenEdit = () => {
+  const [createdPages, setCreatedPages] =
+    useState<SinglePageData[]>(createdPagesCtxData);
+
+  useEffect(() => {
+    setCreatedPages(createdPagesCtxData);
+  }, [createdPagesCtxData]);
+
+  const handleModalOpenEdit = (pageId: string) => {
     setIsModalOpen(true);
-    setIsEdit(true);
+    setEditPageId(pageId);
   };
-  const handleOnDelete = () => console.log("Something Deleted");
+
+  const handleOnDelete = async (pageId: string) => {
+    try {
+      const response: SinglePageData = await deletePage(pageId);
+      if (response) {
+        setCreatedPagesCtxData((prev) =>
+          prev.filter((page) => response.id !== page.id)
+        );
+      }
+    } catch (error) {
+      console.log("Something went wrong..", error);
+    }
+  };
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
 
   return (
     <Container className="mt-2 px-4 pt-4">
-      {pagesData?.map((page) => (
+      {createdPages.map((page) => (
         <Row
-          key={page.slug}
+          key={page.id}
           className="mb-3 text-align-center align-items-center justify-content-center gap-3"
           md={6}
         >
@@ -46,13 +65,13 @@ const CreatedPagesGrid = ({ pagesData }: CreatedPagesGridProps) => {
             }}
             md={4}
           >
-            {page.title}
+            {page.metaTitle}
           </Col>
           <Col className="d-flex gap-2">
             <Button
               className="d-flex align-items-center gap-1"
               variant="outline-light"
-              onClick={handleModalOpenEdit}
+              onClick={() => handleModalOpenEdit(page.id)}
             >
               {<Pencil size={20} />}
               Edit
@@ -60,7 +79,7 @@ const CreatedPagesGrid = ({ pagesData }: CreatedPagesGridProps) => {
             <Button
               className="d-flex align-items-center gap-1"
               variant="outline-danger"
-              onClick={handleOnDelete}
+              onClick={() => handleOnDelete(page.id)}
             >
               {<Trash2 size={20} />}
               Delete
@@ -74,7 +93,7 @@ const CreatedPagesGrid = ({ pagesData }: CreatedPagesGridProps) => {
       <ModalView
         isOpen={isModalOpen}
         handleClose={handleModalClose}
-        isEdit={isEdit}
+        editPageId={editPageId}
       />
     </Container>
   );
