@@ -3,8 +3,17 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Plus } from "lucide-react";
 import ModalView from "../Modal/page";
+import { Home } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+
+type ParamsType = {
+  slug: string;
+};
 
 const Header = () => {
+  const { slug }: ParamsType = useParams();
+  const router = useRouter();
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleModalOpenCreate = () => {
@@ -20,12 +29,21 @@ const Header = () => {
       <Button
         className="d-flex align-items-center gap-1"
         variant="outline-light"
+        disabled={slug ? false : true}
+        onClick={() => router.push("/")}
+      >
+        {<Home size={20} />}
+      </Button>
+      <div className="border border-danger" />
+
+      <Button
+        className="d-flex align-items-center gap-1"
+        variant="outline-light"
         onClick={handleModalOpenCreate}
       >
         {<Plus size={20} />}
         Add new page
       </Button>
-      <div className="border border-danger" />
       <ModalView isOpen={isModalOpen} handleClose={handleModalClose} />
     </div>
   );
