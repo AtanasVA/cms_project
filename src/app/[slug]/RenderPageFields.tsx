@@ -4,47 +4,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Pencil, Trash2, Plus } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
-import { deletePage } from "~/server/queries";
-import {
-  CreatedPagesDataContext,
-  type CreatedPagesDataContextType,
-  type SinglePageData,
-} from "shared/PagesDataContext";
+import { Trash2, Plus } from "lucide-react";
+import { useState } from "react";
 import PaginationRow from "../_components/PaginationRow/page";
 
 const RenderPageFields = () => {
   const [createdFields, setCreatedFields] =
     useState<typeof SAMPLE_FIELDS>(SAMPLE_FIELDS);
 
-  //   const [editPageId, setEditPageId] = useState<string | null>(null);
-  //   const [editPageSlug, setEditPageSlug] = useState<string | null>(null);
-  //   const { createdPagesCtxData, setCreatedPagesCtxData } =
-  //     useContext<CreatedPagesDataContextType>(CreatedPagesDataContext);
-
-  //   const [createdPages, setCreatedPages] =
-  //     useState<SinglePageData[]>(createdPagesCtxData);
-
-  //   useEffect(() => {
-  //     setCreatedPages(createdPagesCtxData);
-  //   }, [createdPagesCtxData]);
-
-  //   const handleModalOpenEdit = (pageId: string, pageSlug: string) => {
-  //     setIsModalOpen(true);
-  //     setEditPageId(pageId);
-  //     setEditPageSlug(pageSlug);
-  //   };
-
   const handleOnDelete = async (pageId: number) => {
     try {
       setCreatedFields((prev) => prev.filter((page) => pageId !== page.id));
-      //   const response: SinglePageData = await deletePage(pageId);
-      //   if (response) {
-      //   setCreatedFields((prev) =>
-      //     prev.filter((page) => response.id !== page.id)
-      //   );
-      //   }
     } catch (error) {
       console.log("Something went wrong..", error);
     }
