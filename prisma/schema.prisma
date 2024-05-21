@@ -12,5 +12,14 @@ model Page {
   slug String @unique
   metaTitle String @map("meta_title")
   metaDescription String? @map("meta_description")
+  posts Posts[]
   @@map("pages")
+}
+
+model Posts {
+  id Int @id @default(autoincrement())
+  parent Page @relation(fields: [parentSlug], references: [slug])
+  postContent String? @map("post_content")
+  parentSlug String
+  @@map("posts")
 }
