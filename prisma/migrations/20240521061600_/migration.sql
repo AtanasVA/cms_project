@@ -13,10 +13,10 @@ CREATE TABLE `pages` (
 CREATE TABLE `posts` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `post_content` VARCHAR(191) NULL,
-    `parentSlug` VARCHAR(191) NOT NULL,
+    `parent_slug` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `posts` ADD CONSTRAINT `posts_parentSlug_fkey` FOREIGN KEY (`parentSlug`) REFERENCES `pages`(`slug`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `posts` ADD CONSTRAINT `posts_parent_slug_fkey` FOREIGN KEY (`parent_slug`) REFERENCES `pages`(`slug`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -20,6 +20,6 @@ model Posts {
   id Int @id @default(autoincrement())
   parent Page @relation(fields: [parentSlug], references: [slug])
   postContent String? @map("post_content")
-  parentSlug String
+  parentSlug String @map("parent_slug")
   @@map("posts")
 }
