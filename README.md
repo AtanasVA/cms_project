@@ -54,17 +54,17 @@ Note: You can also use DBeaver to monitor your database behavior.
 
 Don't forget to copy the env.example to a .env file and update the DATABASE_URL with your details ( if you're using different ones that is ).
 
-Once all of that is rolling you'll need to run the prisma migrations and generate your prisma client:
+Once all of that is rolling you'll need to generate your prisma client and run the prisma migrations:
 
 ```
 npx prisma generate
 ```
 
 ```
-npx prisma migrate
+npx prisma migrate dev
 ```
 
-And that should be it. Run!
+And that should be it. Run
 
 ```
 npm run dev
