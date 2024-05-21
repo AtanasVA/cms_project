@@ -1,6 +1,7 @@
 import Header from "../_components/Header/page";
 import { getPage } from "~/server/queries";
 import { SinglePageData } from "shared/PagesDataContext";
+import RenderPageFields from "./RenderPageFields";
 
 type CustomPageType = {
   params: { slug: string };
@@ -16,6 +17,7 @@ const CustomPage = async ({ params }: CustomPageType) => {
         <h1 className="text-danger">{`${pageData?.metaTitle}`}</h1>
         <p>{pageData?.metaDescription}</p>
         <div className="border border-danger"></div>
+        <RenderPageFields />
       </div>
     </>
   );
