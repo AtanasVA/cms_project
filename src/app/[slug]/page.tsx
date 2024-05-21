@@ -7,8 +7,15 @@ type CustomPageType = {
   params: { slug: string };
 };
 
+export type SinglePageDataWithPostsType = SinglePageData & {
+  posts: { id: number; postContent?: string; parentSlug: string }[];
+};
+
 const CustomPage = async ({ params }: CustomPageType) => {
-  const [pageData]: SinglePageData[] = await getPage(params.slug);
+  const [pageData]: SinglePageDataWithPostsType[] = await getPage(
+    params.slug,
+    true //TODO: Find another way to get posts
+  );
 
   return (
     <>
@@ -17,7 +24,10 @@ const CustomPage = async ({ params }: CustomPageType) => {
         <h1 className="text-danger">{`${pageData?.metaTitle}`}</h1>
         <p>{pageData?.metaDescription}</p>
         <div className="border border-danger"></div>
-        <RenderPageFields />
+        <RenderPageFields
+          parentSlug={pageData?.slug || ""}
+          pagePosts={pageData?.posts}
+        />
       </div>
     </>
   );
