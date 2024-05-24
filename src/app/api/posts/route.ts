@@ -3,24 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { handleError } from "~/server/errorHandler";
 
 export async function GET(req: NextRequest) {
-  const slug = req.nextUrl.searchParams.get("pageSlug");
-  const withPosts = req.nextUrl.searchParams.get("withPosts");
+  const parentSlug = req.nextUrl.searchParams.get("parentSlug");
 
   let response;
-  const filters = {} as {
-    where?: {};
-    include?: {};
-  };
-
   try {
-    if (slug) {
-      filters.where = { slug };
-      filters.include = { posts: withPosts === "true" };
-      response = await prisma.page.findMany({ ...filters });
-    } else {
-      response = await prisma.page.findMany({ ...filters });
+    if (parentSlug) {
+      response = await prisma.post.findMany({ where: { parentSlug } });
     }
-
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     return handleError(error);
@@ -30,7 +19,7 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   const data = await req.json();
   try {
-    const response = await prisma.page.create({
+    const response = await prisma.post.create({
       data,
     });
 
@@ -62,16 +51,16 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const id = req.nextUrl.searchParams.get("pageId");
-  let response;
+  const { id, parentSlug }: { id: number; parentSlug: string } =
+    await req.json();
+
   try {
-    if (id) {
-      response = await prisma.page.delete({
-        where: {
-          id: Number(id),
-        },
-      });
-    }
+    const response = await prisma.post.delete({
+      where: {
+        id,
+        parentSlug,
+      },
+    });
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {

@@ -10,11 +10,17 @@ Not yet fully completed as more things are needed to be done, like for example:
 - [x] Add new posts table and create a relation between pages and posts
 - [x] Add FE functionality allowing the user to create, edit and delete posts for each page.
 - [x] Add CRUD queries for the posts and link them with the scaffolded FE functionality
+- [x] Delete posts cascade when page is deleted
 
 - [ ] Add pagination for the created pages and page content
 - [ ] Add advanced error handling. A toast with the error returned from the server will be a nice touch
+
 - [ ] Add form validation on the modals using [Zod](https://zod.dev/)
-- [ ] Possibly add [Formik](https://formik.org/) or [React Hook Form](https://react-hook-form.com/) to handle the form submissions more gracefully
+- [ ] Implement CI/CD pipeline
+
+- [ ] Add [React Hook Form](https://react-hook-form.com/) to handle the form submissions more gracefully
+- [ ] Add [Clerk](https://clerk.com/) to handle user auth
+
 - [ ] Improve the type-safety of the queries
 - [ ] Sanitize codebase and abstract components such as Grid, Header..
 

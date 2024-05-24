@@ -19,4 +19,4 @@ CREATE TABLE `posts` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `posts` ADD CONSTRAINT `posts_parent_slug_fkey` FOREIGN KEY (`parent_slug`) REFERENCES `pages`(`slug`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `posts` ADD CONSTRAINT `posts_parent_slug_fkey` FOREIGN KEY (`parent_slug`) REFERENCES `pages`(`slug`) ON DELETE CASCADE ON UPDATE CASCADE;
