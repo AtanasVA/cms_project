@@ -1,7 +1,7 @@
 import Header from "../_components/Header/page";
 import { getPage } from "~/server/queries";
 import { SinglePageData } from "shared/PagesDataContext";
-import RenderPageFields from "./RenderPageFields";
+import RenderPageFields from "./PagePosts";
 
 type CustomPageType = {
   params: { slug: string };

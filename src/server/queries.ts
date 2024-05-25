@@ -114,8 +114,8 @@ export const createPost = async (data: {
 };
 
 export const updatePost = async (data: {
-  parentSlug: string;
-  postContent: string;
+  postId: number;
+  postContent?: string;
 }) => {
   if (!data) throw new Error("Missing post data");
 
@@ -129,13 +129,13 @@ export const updatePost = async (data: {
   return response.json();
 };
 
-export const deletePost = async (id: number, parentSlug: string) => {
+export const deletePost = async (id: number) => {
   const response = await fetch(`http://localhost:3000/api/posts`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ id, parentSlug }),
+    body: JSON.stringify(id),
   });
   return response.json();
 };

@@ -30,17 +30,16 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  const { id, slug, metaTitle, metaDescription } = await req.json();
+  const { postId: id, postContent }: { postId: number; postContent?: string } =
+    await req.json();
 
   try {
-    const response = await prisma.page.update({
+    const response = await prisma.post.update({
       where: {
         id,
       },
       data: {
-        slug,
-        metaTitle,
-        metaDescription,
+        postContent,
       },
     });
 
@@ -51,14 +50,12 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const { id, parentSlug }: { id: number; parentSlug: string } =
-    await req.json();
+  const id: number = await req.json();
 
   try {
     const response = await prisma.post.delete({
       where: {
         id,
-        parentSlug,
       },
     });
 

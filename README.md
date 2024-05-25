@@ -11,6 +11,7 @@ Not yet fully completed as more things are needed to be done, like for example:
 - [x] Add FE functionality allowing the user to create, edit and delete posts for each page.
 - [x] Add CRUD queries for the posts and link them with the scaffolded FE functionality
 - [x] Delete posts cascade when page is deleted
+- [x] Debounce post input and save to database
 
 - [ ] Add pagination for the created pages and page content
 - [ ] Add advanced error handling. A toast with the error returned from the server will be a nice touch
