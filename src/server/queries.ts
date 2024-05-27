@@ -1,4 +1,5 @@
 import { SinglePageData } from "shared/PagesDataContext";
+import clearPagesTag from "~/app/actions";
 
 type ApiResponse = { data?: SinglePageData; error?: string | null };
 
@@ -10,6 +11,9 @@ export const getPages = async () => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+    },
+    next: {
+      tags: ["all-pages"],
     },
   });
   if (!response) throw new Error("Failed to fetch pages");
@@ -46,6 +50,8 @@ export const createPage = async (data: {
     },
     body: JSON.stringify(data),
   });
+
+  clearPagesTag();
   return response.json();
 };
 
@@ -63,6 +69,7 @@ export const updatePage = async (data: {
     },
     body: JSON.stringify(data),
   });
+  clearPagesTag();
   return response.json();
 };
 

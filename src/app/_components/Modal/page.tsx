@@ -181,14 +181,14 @@ const ModalView = ({
       </Modal.Body>
       <Modal.Footer>
         <Button
-          variant="secondary"
+          variant="primary"
           onClick={() =>
             editPageId ? handleUpdate(editPageId) : handleCreatePage()
           }
         >
           {saveButtonText}
         </Button>
-        <Button variant="primary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
       </Modal.Footer>
