@@ -2,6 +2,10 @@
 
 import { revalidateTag } from "next/cache";
 
-export default async function clearPagesTag() {
+export async function clearPagesTag() {
   revalidateTag("all-pages");
+}
+
+export async function clearPostsTag() {
+  revalidateTag("all-posts");
 }

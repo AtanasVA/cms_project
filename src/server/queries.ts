@@ -1,5 +1,5 @@
 import { SinglePageData } from "shared/PagesDataContext";
-import clearPagesTag from "~/app/actions";
+import { clearPagesTag, clearPostsTag } from "~/app/actions";
 
 type ApiResponse = { data?: SinglePageData; error?: string | null };
 
@@ -17,7 +17,6 @@ export const getPages = async () => {
     },
   });
   if (!response) throw new Error("Failed to fetch pages");
-
   return response.json();
 };
 
@@ -32,7 +31,6 @@ export const getPage = async (pageSlug: string, withPosts = false) => {
     }
   );
   if (!response) throw new Error("Page not found");
-
   return response.json();
 };
 
@@ -83,6 +81,7 @@ export const deletePage = async (pageId: string) => {
       },
     }
   );
+  clearPagesTag();
   return response.json();
 };
 
@@ -96,6 +95,9 @@ export const getPosts = async (parentSlug: string) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+      },
+      next: {
+        tags: ["all-posts"],
       },
     }
   );
@@ -117,6 +119,7 @@ export const createPost = async (data: {
     },
     body: JSON.stringify(data),
   });
+  clearPostsTag();
   return response.json();
 };
 
@@ -133,6 +136,7 @@ export const updatePost = async (data: {
     },
     body: JSON.stringify(data),
   });
+  clearPostsTag();
   return response.json();
 };
 
@@ -144,5 +148,6 @@ export const deletePost = async (id: number) => {
     },
     body: JSON.stringify(id),
   });
+  clearPostsTag();
   return response.json();
 };
