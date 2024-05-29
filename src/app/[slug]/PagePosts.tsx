@@ -8,6 +8,7 @@ import PaginationRow from "../_components/PaginationRow/page";
 import { createPost } from "~/server/queries";
 import { SinglePageDataWithPostsType } from "./page";
 import RenderSinglePost from "./RenderSinglePost";
+import toast from "react-hot-toast";
 
 type RenderPageFieldsProps = {
   parentSlug: string;
@@ -20,10 +21,14 @@ const RenderPageFields = ({ parentSlug, pagePosts }: RenderPageFieldsProps) => {
   >(pagePosts || []);
 
   const handleAddNewField = async () => {
-    const response = (await createPost({
-      parentSlug,
-      postContent: "",
-    })) as any; //TODO: Add proper types
+    const response = (await toast.promise(
+      createPost({ parentSlug, postContent: "" }),
+      {
+        loading: "Loading",
+        success: "Post created succesfully",
+        error: "Error with post creation",
+      }
+    )) as any; //TODO: Add proper types
 
     if (response?.data) {
       setCreatedPosts((prev) => [...prev, response.data]);

@@ -12,9 +12,10 @@ Not yet fully completed as more things are needed to be done, like for example:
 - [x] Add CRUD queries for the posts and link them with the scaffolded FE functionality
 - [x] Delete posts cascade when page is deleted
 - [x] Debounce post input and save to database
+- [x] Fix bug with stale cache data
+- [x] Add advanced error handling. A [RHT](https://react-hot-toast.com/) toast with the error returned from the server will be a nice touch
 
 - [ ] Add pagination for the created pages and page content
-- [ ] Add advanced error handling. A toast with the error returned from the server will be a nice touch
 
 - [ ] Add form validation on the modals using [Zod](https://zod.dev/)
 - [ ] Implement CI/CD pipeline

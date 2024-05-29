@@ -14,6 +14,7 @@ import {
   type CreatedPagesDataContextType,
   type SinglePageData,
 } from "shared/PagesDataContext";
+import toast from "react-hot-toast";
 
 const CreatedPagesGrid = () => {
   const { push } = useRouter();
@@ -38,14 +39,19 @@ const CreatedPagesGrid = () => {
 
   const handleOnDelete = async (pageId: string) => {
     try {
-      const response: SinglePageData = await deletePage(pageId);
+      const response: SinglePageData = await toast.promise(deletePage(pageId), {
+        loading: "Loading",
+        success: "Page deleted",
+        error: "Something went wrong",
+      });
+
       if (response) {
         setCreatedPagesCtxData((prev) =>
           prev.filter((page) => response.id !== page.id)
         );
       }
-    } catch (error) {
-      console.log("Something went wrong..", error);
+    } catch (error: any) {
+      toast.error(error);
     }
   };
   const handleModalClose = () => {

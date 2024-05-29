@@ -7,6 +7,7 @@ import { deletePost, updatePost } from "~/server/queries";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SinglePageDataWithPostsType } from "./page";
 import { useDebounce } from "../_components/Debounce/useDebounce";
+import toast from "react-hot-toast";
 
 type RenderSinglePostProps = {
   postId: number;
@@ -29,10 +30,13 @@ const RenderSinglePost = ({
 
   useEffect(() => {
     const savePostInput = async () => {
-      await updatePost({
+      const data = await updatePost({
         postId,
         postContent: currentPostContent,
       });
+      if (data) {
+        toast.success("Post updated successfully");
+      }
     };
 
     if (postContent !== currentPostContent) {
@@ -40,14 +44,18 @@ const RenderSinglePost = ({
     }
   }, [debouncedSearch]);
 
-  const handleOnDelete = async (pageId: number) => {
+  const handleOnDelete = async (postId: number) => {
     try {
-      const response = await deletePost(pageId);
+      const response = await toast.promise(deletePost(postId), {
+        loading: "Loading",
+        success: "Post deleted",
+        error: "Something went wrong",
+      });
       if (response) {
-        setCreatedPosts((prev) => prev.filter((page) => pageId !== page.id));
+        setCreatedPosts((prev) => prev.filter((post) => postId !== post.id));
       }
-    } catch (error) {
-      console.log("Something went wrong..", error);
+    } catch (error: any) {
+      toast.error(error);
     }
   };
 

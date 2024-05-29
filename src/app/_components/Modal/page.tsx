@@ -13,6 +13,7 @@ import {
   type CreatedPagesDataContextType,
   type SinglePageData,
 } from "shared/PagesDataContext";
+import toast from "react-hot-toast";
 
 type ModalProps = {
   isOpen: boolean;
@@ -53,8 +54,8 @@ const ModalView = ({
             setPageTitle(pageData.metaTitle);
             setPageDescription(pageData.metaDescription);
           }
-        } catch (error) {
-          console.log("Something went wrong..", error);
+        } catch (error: any) {
+          toast.error(error);
         }
       }
     };
@@ -72,18 +73,17 @@ const ModalView = ({
 
         if (data) {
           setCreatedPagesCtxData((prev) => [...prev, data]);
+          toast.success("Page created successfully");
           return handleClose();
         } else if (error) {
-          return console.log(
-            "There has been an error creating the page:",
-            error
-          );
+          return toast.error(error);
         }
       }
-
-      console.log("Missing fields!");
-    } catch (error) {
-      console.log("Something went wrong...", error);
+      toast("Missing fields!", {
+        icon: "⚠️",
+      });
+    } catch (error: any) {
+      toast.error(error);
     }
   };
 
@@ -105,17 +105,17 @@ const ModalView = ({
 
             return [...notUpdatedData, data];
           });
+          toast.success("Page created successfully");
           return handleClose();
         } else if (error) {
-          return console.log(
-            "There has been an error creating the page:",
-            error
-          );
+          return toast.error(error);
         }
       }
-      console.log("Missing fields!");
-    } catch (error) {
-      console.log("Something went wrong...", error);
+      toast("Missing fields!", {
+        icon: "⚠️",
+      });
+    } catch (error: any) {
+      toast.error(error);
     }
   };
 
