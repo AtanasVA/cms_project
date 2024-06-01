@@ -7,7 +7,7 @@ type ApiResponse = { data?: SinglePageData; error?: string | null };
 //TODO:Fix Type
 
 export const getPages = async () => {
-  const response = await fetch("http://localhost:3000/api/pages", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pages`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -16,13 +16,14 @@ export const getPages = async () => {
       tags: ["all-pages"],
     },
   });
+
   if (!response) throw new Error("Failed to fetch pages");
   return response.json();
 };
 
 export const getPage = async (pageSlug: string, withPosts = false) => {
   const response = await fetch(
-    `http://localhost:3000/api/pages?pageSlug=${pageSlug}&withPosts=${withPosts}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/pages?pageSlug=${pageSlug}&withPosts=${withPosts}`,
     {
       method: "GET",
       headers: {
@@ -41,14 +42,13 @@ export const createPage = async (data: {
 }): Promise<ApiResponse> => {
   if (!data) throw new Error("Missing page data");
 
-  const response = await fetch("http://localhost:3000/api/pages", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pages`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
-
   clearPagesTag();
   return response.json();
 };
@@ -60,7 +60,7 @@ export const updatePage = async (data: {
   metaDescription?: string;
 }): Promise<ApiResponse> => {
   if (!data) throw new Error("Missing page data");
-  const response = await fetch("http://localhost:3000/api/pages", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pages`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export const updatePage = async (data: {
 
 export const deletePage = async (pageId: string) => {
   const response = await fetch(
-    `http://localhost:3000/api/pages?pageId=${pageId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/pages?pageId=${pageId}`,
     {
       method: "DELETE",
       headers: {
@@ -90,7 +90,7 @@ export const deletePage = async (pageId: string) => {
 
 export const getPosts = async (parentSlug: string) => {
   const response = await fetch(
-    `http://localhost:3000/api/posts?parentSlug=${parentSlug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/posts?parentSlug=${parentSlug}`,
     {
       method: "GET",
       headers: {
@@ -112,7 +112,7 @@ export const createPost = async (data: {
   postContent: string;
 }): Promise<ApiResponse> => {
   if (!data) throw new Error("Missing post data");
-  const response = await fetch("http://localhost:3000/api/posts", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -129,7 +129,7 @@ export const updatePost = async (data: {
 }) => {
   if (!data) throw new Error("Missing post data");
 
-  const response = await fetch("http://localhost:3000/api/posts", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -141,7 +141,7 @@ export const updatePost = async (data: {
 };
 
 export const deletePost = async (id: number) => {
-  const response = await fetch(`http://localhost:3000/api/posts`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
