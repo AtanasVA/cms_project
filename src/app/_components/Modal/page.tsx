@@ -1,4 +1,5 @@
 "use client";
+import { createPage, getPage, updatePage } from "utils/queries";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useContext, useEffect, useState } from "react";
@@ -13,7 +14,6 @@ import {
   type SinglePageData,
 } from "shared/PagesDataContext";
 import toast from "react-hot-toast";
-import { createPage, getPage, updatePage } from "../../../app/utils/queries";
 
 type ModalProps = {
   isOpen: boolean;

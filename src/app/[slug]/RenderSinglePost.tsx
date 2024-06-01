@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SinglePageDataWithPostsType } from "./page";
 import { useDebounce } from "../_components/Debounce/useDebounce";
 import toast from "react-hot-toast";
-import { deletePost, updatePost } from "../utils/queries";
+import { deletePost, updatePost } from "utils/queries";
 
 type RenderSinglePostProps = {
   postId: number;
