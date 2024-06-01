@@ -1,19 +1,19 @@
 version: "3.3"
 services:
   pages_db:
-    image: mysql
+    image: postgres
     restart: always
     environment:
-      MYSQL_DATABASE: "pages_db"
-      MYSQL_USER: "atanas_va"
-      MYSQL_PASSWORD: "secret"
-      MYSQL_ROOT_PASSWORD: "secret_root"
+      POSTGRES_USER: atanas_va
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: pages_db
+      POSTGRES_ROOT_PASSWORD: secret_root
     ports:
-      - "3306:3306"
+      - "5432:5432"
     expose:
-      - "3306"
+      - "5432"
     volumes:
-      - pages_db:/var/lib/mysql
+      - pages_db:/var/lib/psql
 # Names our volume
 volumes:
   pages_db:

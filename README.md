@@ -14,6 +14,7 @@ Not yet fully completed as more things are needed to be done, like for example:
 - [x] Debounce post input and save to database
 - [x] Fix bug with stale cache data
 - [x] Add advanced error handling. A [RHT](https://react-hot-toast.com/) toast with the error returned from the server will be a nice touch
+- [x] Switch DB to Postgres + init prod database in Vercel
 
 - [ ] Add pagination for the created pages and page content
 
