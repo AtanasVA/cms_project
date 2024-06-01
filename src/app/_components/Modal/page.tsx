@@ -2,7 +2,6 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useContext, useEffect, useState } from "react";
-import { createPage, getPage, updatePage } from "~/server/queries";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Container from "react-bootstrap/Container";
@@ -14,6 +13,7 @@ import {
   type SinglePageData,
 } from "shared/PagesDataContext";
 import toast from "react-hot-toast";
+import { createPage, getPage, updatePage } from "../../../app/utils/queries";
 
 type ModalProps = {
   isOpen: boolean;

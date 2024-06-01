@@ -5,10 +5,10 @@ import { Plus } from "lucide-react";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import PaginationRow from "../_components/PaginationRow/page";
-import { createPost } from "~/server/queries";
 import { SinglePageDataWithPostsType } from "./page";
 import RenderSinglePost from "./RenderSinglePost";
 import toast from "react-hot-toast";
+import { createPost } from "../utils/queries";
 
 type RenderPageFieldsProps = {
   parentSlug: string;

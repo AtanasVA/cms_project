@@ -3,11 +3,11 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { Trash2 } from "lucide-react";
 import Button from "react-bootstrap/Button";
-import { deletePost, updatePost } from "~/server/queries";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SinglePageDataWithPostsType } from "./page";
 import { useDebounce } from "../_components/Debounce/useDebounce";
 import toast from "react-hot-toast";
+import { updatePost } from "../utils/queries";
 
 type RenderSinglePostProps = {
   postId: number;

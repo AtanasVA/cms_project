@@ -8,13 +8,13 @@ import { Pencil, Trash2 } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import PaginationRow from "../PaginationRow/page";
 import ModalView from "../Modal/page";
-import { deletePage } from "~/server/queries";
 import {
   CreatedPagesDataContext,
   type CreatedPagesDataContextType,
   type SinglePageData,
 } from "shared/PagesDataContext";
 import toast from "react-hot-toast";
+import { deletePage } from "../../../app/utils/queries";
 
 const CreatedPagesGrid = () => {
   const { push } = useRouter();
