@@ -1,5 +1,5 @@
 "use client";
-import { createPage, getPage, updatePage } from "utils/queries";
+import { createPage, getPage, updatePage } from "~/server/queries";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useContext, useEffect, useState } from "react";

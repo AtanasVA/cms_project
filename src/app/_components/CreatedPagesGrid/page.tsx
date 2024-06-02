@@ -14,7 +14,7 @@ import {
   type SinglePageData,
 } from "shared/PagesDataContext";
 import toast from "react-hot-toast";
-import { deletePage } from "utils/queries";
+import { deletePage } from "~/server/queries";
 
 const CreatedPagesGrid = () => {
   const { push } = useRouter();

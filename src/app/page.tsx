@@ -1,5 +1,5 @@
 import Landing from "./Landing/page";
-import { getPages } from "utils/queries";
+import { getPages } from "~/server/queries";
 
 const Home = async () => {
   const data = await getPages();

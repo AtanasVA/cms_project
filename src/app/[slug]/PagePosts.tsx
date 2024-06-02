@@ -8,7 +8,7 @@ import PaginationRow from "../_components/PaginationRow/page";
 import { SinglePageDataWithPostsType } from "./page";
 import RenderSinglePost from "./RenderSinglePost";
 import toast from "react-hot-toast";
-import { createPost } from "utils/queries";
+import { createPost } from "~/server/queries";
 
 type RenderPageFieldsProps = {
   parentSlug: string;
