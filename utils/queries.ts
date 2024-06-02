@@ -29,6 +29,9 @@ export const getPage = async (pageSlug: string, withPosts = false) => {
       headers: {
         "Content-Type": "application/json",
       },
+      next: {
+        tags: ["all-pages"],
+      },
     }
   );
   if (!response) throw new Error("Page not found");
@@ -120,6 +123,7 @@ export const createPost = async (data: {
     body: JSON.stringify(data),
   });
   clearPostsTag();
+  clearPagesTag();
   return response.json();
 };
 
@@ -137,6 +141,7 @@ export const updatePost = async (data: {
     body: JSON.stringify(data),
   });
   clearPostsTag();
+  clearPagesTag();
   return response.json();
 };
 
@@ -149,5 +154,6 @@ export const deletePost = async (id: number) => {
     body: JSON.stringify(id),
   });
   clearPostsTag();
+  clearPagesTag();
   return response.json();
 };
