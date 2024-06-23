@@ -105,7 +105,7 @@ const ModalView = ({
 
             return [...notUpdatedData, data];
           });
-          toast.success("Page created successfully");
+          toast.success("Page updated successfully");
           return handleClose();
         } else if (error) {
           return toast.error(error);
