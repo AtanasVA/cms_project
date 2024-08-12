@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 import { deletePage } from "~/server/queries";
 
 type CreatedPagesGridProps = {
-  paginationArgs: {
+  paginationArgs?: {
     page: string;
     limit: string;
     hasNextPage: boolean;
@@ -109,9 +109,11 @@ const CreatedPagesGrid = ({ paginationArgs }: CreatedPagesGridProps) => {
           </Row>
         ))}
       </div>
-      <Row>
-        <PaginationRow paginationArgs={paginationArgs} />
-      </Row>
+      {paginationArgs && (
+        <Row>
+          <PaginationRow paginationArgs={paginationArgs} />
+        </Row>
+      )}
       <ModalView
         isOpen={isModalOpen}
         handleClose={handleModalClose}

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 type LandingProps = {
   pagesData: {
-    paginationArgs: {
+    paginationArgs?: {
       page: string;
       limit: string;
       hasNextPage: boolean;
@@ -23,11 +23,11 @@ type LandingProps = {
 const Landing = ({ pagesData }: LandingProps) => {
   const [createdPagesCtxData, setCreatedPagesCtxData] = useState<
     SinglePageData[]
-  >(pagesData.data || []);
+  >(pagesData?.data || []);
 
   useEffect(() => {
-    setCreatedPagesCtxData(pagesData.data || []);
-  }, [pagesData.data]);
+    setCreatedPagesCtxData(pagesData?.data || []);
+  }, [pagesData?.data]);
 
   return (
     <CreatedPagesDataContext.Provider
@@ -37,7 +37,7 @@ const Landing = ({ pagesData }: LandingProps) => {
       <div className="text-center mt4 col-md-8 mx-auto min-h-lvh">
         <h1 className="text-danger">Created Pages</h1>
         <div className="border border-danger"></div>
-        <CreatedPagesGrid paginationArgs={pagesData.paginationArgs} />
+        <CreatedPagesGrid paginationArgs={pagesData?.paginationArgs} />
       </div>
     </CreatedPagesDataContext.Provider>
   );
