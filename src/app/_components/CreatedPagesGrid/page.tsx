@@ -16,7 +16,17 @@ import {
 import toast from "react-hot-toast";
 import { deletePage } from "~/server/queries";
 
-const CreatedPagesGrid = () => {
+type CreatedPagesGridProps = {
+  paginationArgs: {
+    page: string;
+    limit: string;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+    totalCount: number;
+  };
+};
+
+const CreatedPagesGrid = ({ paginationArgs }: CreatedPagesGridProps) => {
   const { push } = useRouter();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editPageId, setEditPageId] = useState<string | null>(null);
@@ -62,43 +72,45 @@ const CreatedPagesGrid = () => {
 
   return (
     <Container className="mt-2 px-4 pt-4">
-      {createdPages.map((page) => (
-        <Row
-          key={page.id}
-          className="mb-3 text-align-center align-items-center justify-content-center gap-3"
-          md={6}
-        >
-          <Col
-            className="border border-grey rounded col-hover p-2"
-            onClick={() => {
-              push(`/${page.slug}`);
-            }}
-            md={4}
+      <div style={{ minHeight: "300px" }}>
+        {createdPages.map((page) => (
+          <Row
+            key={page.id}
+            className="mb-3 text-align-center align-items-center justify-content-center gap-3"
+            md={6}
           >
-            {page.metaTitle}
-          </Col>
-          <Col className="d-flex gap-2">
-            <Button
-              className="d-flex align-items-center gap-1"
-              variant="outline-light"
-              onClick={() => handleModalOpenEdit(page.id, page.slug)}
+            <Col
+              className="border border-grey rounded col-hover p-2"
+              onClick={() => {
+                push(`/${page.slug}`);
+              }}
+              md={4}
             >
-              {<Pencil size={20} />}
-              Edit
-            </Button>
-            <Button
-              className="d-flex align-items-center gap-1"
-              variant="outline-danger"
-              onClick={() => handleOnDelete(page.id)}
-            >
-              {<Trash2 size={20} />}
-              Delete
-            </Button>
-          </Col>
-        </Row>
-      ))}
+              {page.metaTitle}
+            </Col>
+            <Col className="d-flex gap-2">
+              <Button
+                className="d-flex align-items-center gap-1"
+                variant="outline-light"
+                onClick={() => handleModalOpenEdit(page.id, page.slug)}
+              >
+                {<Pencil size={20} />}
+                Edit
+              </Button>
+              <Button
+                className="d-flex align-items-center gap-1"
+                variant="outline-danger"
+                onClick={() => handleOnDelete(page.id)}
+              >
+                {<Trash2 size={20} />}
+                Delete
+              </Button>
+            </Col>
+          </Row>
+        ))}
+      </div>
       <Row>
-        <PaginationRow />
+        <PaginationRow paginationArgs={paginationArgs} />
       </Row>
       <ModalView
         isOpen={isModalOpen}

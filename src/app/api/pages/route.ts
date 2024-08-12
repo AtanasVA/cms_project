@@ -1,18 +1,29 @@
-import { prisma } from "prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "prisma/client";
 import { handleError } from "~/server/errorHandler";
 
 export async function GET(req: NextRequest) {
+  //pagination
+  const page = req.nextUrl.searchParams.get("page") || "1";
+  const limit = req.nextUrl.searchParams.get("limit") || "5";
+
+  const skip = page === "1" ? 0 : (Number(page) - 1) * Number(limit);
+  const take = Number(limit);
+
   const slug = req.nextUrl.searchParams.get("pageSlug");
   const withPosts = req.nextUrl.searchParams.get("withPosts");
 
   let response;
-  const filters = {} as {
+  const filters = { skip, take } as {
     where?: {};
     include?: {};
   };
 
   try {
+    const totalCount = await prisma.page.count();
+    const hasNextPage = skip + take < totalCount;
+    const hasPrevPage = skip > 0;
+
     if (slug) {
       filters.where = { slug };
       filters.include = { posts: withPosts === "true" };
@@ -21,7 +32,13 @@ export async function GET(req: NextRequest) {
       response = await prisma.page.findMany({ ...filters });
     }
 
-    return NextResponse.json(response, { status: 200 });
+    return NextResponse.json(
+      {
+        paginationArgs: { page, limit, hasNextPage, hasPrevPage, totalCount },
+        data: response,
+      },
+      { status: 200 }
+    );
   } catch (error) {
     return handleError(error);
   }

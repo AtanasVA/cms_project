@@ -15,8 +15,9 @@ Not yet fully completed as more things are needed to be done, like for example:
 - [x] Fix bug with stale cache data
 - [x] Add advanced error handling. A [RHT](https://react-hot-toast.com/) toast with the error returned from the server will be a nice touch
 - [x] Switch DB to Postgres + init prod database in Vercel
+- [x] Add pagination for the created pages
 
-- [ ] Add pagination for the created pages and page content
+- [ ] Add infinite scrolling for the page content
 
 - [ ] Add form validation on the modals using [Zod](https://zod.dev/)
 - [ ] Implement CI/CD pipeline

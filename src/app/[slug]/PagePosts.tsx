@@ -4,7 +4,6 @@ import Row from "react-bootstrap/Row";
 import { Plus } from "lucide-react";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
-import PaginationRow from "../_components/PaginationRow/page";
 import { SinglePageDataWithPostsType } from "./page";
 import RenderSinglePost from "./RenderSinglePost";
 import toast from "react-hot-toast";
@@ -54,9 +53,6 @@ const RenderPageFields = ({ parentSlug, pagePosts }: RenderPageFieldsProps) => {
             setCreatedPosts={setCreatedPosts}
           />
         ))}
-      </Row>
-      <Row>
-        <PaginationRow />
       </Row>
     </Container>
   );

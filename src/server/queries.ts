@@ -6,16 +6,19 @@ type ApiResponse = { data?: SinglePageData; error?: string | null };
 //Pages
 //TODO:Fix Type
 
-export const getPages = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pages`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    next: {
-      tags: ["all-pages"],
-    },
-  });
+export const getPages = async (page: string, limit: string) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/pages?page=${page}&limit=${limit}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        tags: ["all-pages"],
+      },
+    }
+  );
 
   if (!response) throw new Error("Failed to fetch pages");
   return response.json();
