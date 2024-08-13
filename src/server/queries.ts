@@ -3,10 +3,30 @@ import { clearPagesTag, clearPostsTag } from "~/app/actions";
 
 type ApiResponse = { data?: SinglePageData; error?: string | null };
 
+export type PaginationArgs = {
+  page: string;
+  limit: string;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  totalCount: number;
+};
+
+export type SinglePost = {
+  id: number;
+  postContent?: string;
+  parentSlug: string;
+};
+
 //Pages
 //TODO:Fix Type
 
-export const getPages = async (page: string, limit: string) => {
+export const getPages = async (
+  page: string,
+  limit: string
+): Promise<{
+  data: SinglePageData[];
+  paginationArgs?: PaginationArgs;
+}> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/pages?page=${page}&limit=${limit}`,
     {
@@ -24,7 +44,15 @@ export const getPages = async (page: string, limit: string) => {
   return response.json();
 };
 
-export const getPage = async (pageSlug: string, withPosts = false) => {
+export const getPage = async (
+  pageSlug: string,
+  withPosts = false
+): Promise<{
+  data: (SinglePageData & {
+    posts?: SinglePost[];
+  })[];
+  paginationArgs?: PaginationArgs;
+}> => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/pages?pageSlug=${pageSlug}&withPosts=${withPosts}`,
     {

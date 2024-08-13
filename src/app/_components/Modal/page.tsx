@@ -11,7 +11,6 @@ import Col from "react-bootstrap/Col";
 import {
   CreatedPagesDataContext,
   type CreatedPagesDataContextType,
-  type SinglePageData,
 } from "shared/PagesDataContext";
 import toast from "react-hot-toast";
 
@@ -48,11 +47,12 @@ const ModalView = ({
     const getEditedPageData = async () => {
       if (editPageSlug) {
         try {
-          const [pageData]: SinglePageData[] = await getPage(editPageSlug);
-          if (pageData) {
-            setPageSlug(pageData.slug);
-            setPageTitle(pageData.metaTitle);
-            setPageDescription(pageData.metaDescription);
+          const { data } = await getPage(editPageSlug);
+
+          if (data.length) {
+            setPageSlug(data[0]?.slug);
+            setPageTitle(data[0]?.metaTitle);
+            setPageDescription(data[0]?.metaDescription);
           }
         } catch (error: any) {
           toast.error(error);
@@ -120,6 +120,7 @@ const ModalView = ({
   };
 
   if (!isOpen) return null;
+
   return (
     <Modal show={isOpen} onHide={handleClose} centered backdrop="static">
       <Modal.Header closeButton>

@@ -21,12 +21,12 @@ const CustomPage = async ({ params }: CustomPageType) => {
     <>
       <Header />
       <div className="text-center mt4 col-md-6 mx-auto">
-        <h1 className="text-danger">{`${pageData[0].metaTitle}`}</h1>
-        <p>{pageData[0].metaDescription}</p>
+        <h1 className="text-danger">{`${pageData[0]?.metaTitle}`}</h1>
+        <p>{pageData[0]?.metaDescription}</p>
         <div className="border border-danger"></div>
         <RenderPageFields
-          parentSlug={pageData[0].slug || ""}
-          pagePosts={pageData[0].posts}
+          parentSlug={pageData[0]?.slug || ""}
+          pagePosts={pageData[0]?.posts}
         />
       </div>
     </>

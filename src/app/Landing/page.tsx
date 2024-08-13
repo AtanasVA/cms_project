@@ -6,17 +6,12 @@ import {
 import CreatedPagesGrid from "../_components/CreatedPagesGrid/page";
 import Header from "../_components/Header/page";
 import { useEffect, useState } from "react";
+import { PaginationArgs } from "~/server/queries";
 
 type LandingProps = {
   pagesData: {
-    paginationArgs?: {
-      page: string;
-      limit: string;
-      hasNextPage: boolean;
-      hasPrevPage: boolean;
-      totalCount: number;
-    };
-    data?: [];
+    paginationArgs?: PaginationArgs;
+    data?: SinglePageData[];
   };
 };
 

@@ -14,16 +14,10 @@ import {
   type SinglePageData,
 } from "shared/PagesDataContext";
 import toast from "react-hot-toast";
-import { deletePage } from "~/server/queries";
+import { PaginationArgs, deletePage } from "~/server/queries";
 
 type CreatedPagesGridProps = {
-  paginationArgs?: {
-    page: string;
-    limit: string;
-    hasNextPage: boolean;
-    hasPrevPage: boolean;
-    totalCount: number;
-  };
+  paginationArgs?: PaginationArgs;
 };
 
 const CreatedPagesGrid = ({ paginationArgs }: CreatedPagesGridProps) => {
